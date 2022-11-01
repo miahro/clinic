@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<body>
+
+<h1> Clinic patient management system</h1>
+
+
+
+{% block content %}{% endblock %}
+
+<br>
+<br>
+
+{% if user.is_authenticated %}
+Logged in as {{user.get_username}} 
+{% else %}
+not logged in
+{% endif%}
+
+<br>
+<a href="{% url 'index' %}">Main Page</a>
+
+</body>

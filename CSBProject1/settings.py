@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "clinic.apps.ClinicConfig",
     "polls.apps.PollsConfig",    
     "django.contrib.admin",
     "django.contrib.auth",
@@ -70,6 +71,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "CSBProject1.wsgi.application"
 
+LOGIN_URL = '/login/'
+
+LOGIN_REDIRECT_URL = '/clinic'
+
+SESSION_COOKIE_SAMESITE = None
+
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -106,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Helsinki"
 
 USE_I18N = True
 

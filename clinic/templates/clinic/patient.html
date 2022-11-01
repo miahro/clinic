@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<h2>Patient data:</h2>
+{% if pdata %}
+{% for x in pdata %}
+{{x.0}} {{x.1}} | {{x.2}} | {{x.3}} | {{x.4}}  <br>
+{% endfor %}
+<br><br>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Very important company internal information</h2>
+<p>All staff should know following: </p>
+
+
+
+{% if result %}
+<ul>
+{% for x in result %}
+<li>{{x.1}}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+
+<h2>Add new info point to company intranet </h2>
+
+
+<p>Add info</p>
+<form action="../add_intra/" method="post">
+    <input type="text" id="new_info" name="new_info">
+    <input type="submit" value="Submit">
+</form>
+
+
+{% endblock %}

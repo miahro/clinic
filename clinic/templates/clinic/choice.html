@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<h2>Choose patient</h2>
+to view patient data
+<ul>
+    {% for p in patients %}
+    <li><a href="../patient/{{p.id}}"> {{p.firstname}} {{p.lastname}}</a> </li>
+    {% endfor %}
+
+</ul>
+
+<h2>Add diagnosis to patient </h2>
+<p>Choose patient and diagnosis</p>
+<form action="../add_diagnosis/" method="post">
+    Patient <br>
+    <select name="patient" id="patient">
+    {% for x in patients %}
+        <option value={{x.id}}> {{x.firstname}} {{x.lastname}}</option>
+    {% endfor %}
+    </select><br>
+    Diagnosis <br>
+    <select name="diagnose" id="diagnose">
+        {% for z in diagnoses %}
+            <option value={{z.id}}> {{z.description}}</option>
+        {% endfor %}
+        </select><br>
+    <input type="submit" value="Submit">
+</form>
+
+
+{% endblock %}
