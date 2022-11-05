@@ -2,6 +2,6 @@ polls/
 clinic.sql
 db.sqlite3
 populatedb.sql
-README.md
 log.txt
 sqltest.sql
+db.sqlite3.backup

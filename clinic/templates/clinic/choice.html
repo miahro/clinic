@@ -13,7 +13,9 @@ to view patient data
 
 <h2>Add diagnosis to patient </h2>
 <p>Choose patient and diagnosis</p>
-<form action="../add_diagnosis/" method="post">
+<form action="../add_diagnosis/" method="post">   
+    <!-- fix for FLAW 7 add CSRF token-->
+     <!-- {% csrf_token %} -->
     Patient <br>
     <select name="patient" id="patient">
     {% for x in patients %}

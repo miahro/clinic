@@ -49,5 +49,6 @@ class Medicaldata(models.Model):
     def __str__(self):
         return str(self.pk)
 
+#fix for FLAW 6: remove this table from database
 class Intra(models.Model):
     info = models.CharField(max_length=300)
