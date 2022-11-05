@@ -14,8 +14,8 @@ urlpatterns = [
 	path('logout/', LogoutView.as_view(next_page='/clinic')),
 	path('choice/', views.choice, name='choice'),
 	path('patient/<int:patient_id>', views.patient, name='patient'),
-	path('intra/', views.intra, name='intra'),
-	path('add_diagnosis/', views.add_diagnosis, name='add_diagnosis'), #fix for FLAW 6: remove this view
+	path('intra/', views.intra, name='intra'), #fix for FLAW 6: remove this view
+	path('add_diagnosis/', views.add_diagnosis, name='add_diagnosis'), 
 	path('add_intra/', views.add_intra, name='add_intra') #fix for FLAW 6: remove this view
 
 ]

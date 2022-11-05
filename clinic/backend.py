@@ -78,82 +78,80 @@ def get_patient_data(patient_id, user_id):
 #fix for FLAW 1: separate query for medical data
 #fix for FLAW 2: SQL requry paramatrized
 #fix for FLAW 5: loggin added 
-def get_patient_medical(patient_id, user_id):
-    dbname='db.sqlite3'
-    conn = sqlite3.connect(dbname)
-    cursor = conn.cursor()
-    sql = '''
-        SELECT diagnose_date, firstname, lastname, description
-        FROM clinic_patients, clinic_diagnoses, clinic_medicaldata
-        WHERE clinic_medicaldata.diagnose_id = clinic_diagnoses.id
-        AND clinic_medicaldata.person_id = clinic_patients.id
-        AND clinic_patients.id=:patient_id
-    ;'''
+# def get_patient_medical(patient_id, user_id):
+#     dbname='db.sqlite3'
+#     conn = sqlite3.connect(dbname)
+#     cursor = conn.cursor()
+#     sql = '''
+#         SELECT diagnose_date, firstname, lastname, description
+#         FROM clinic_patients, clinic_diagnoses, clinic_medicaldata
+#         WHERE clinic_medicaldata.diagnose_id = clinic_diagnoses.id
+#         AND clinic_medicaldata.person_id = clinic_patients.id
+#         AND clinic_patients.id=:patient_id
+#     ;'''
 
-    #SQL enquiry properly parametrized
-    response = cursor.execute(sql, {"patient_id":patient_id})
+#     #SQL enquiry properly parametrized
+#     response = cursor.execute(sql, {"patient_id":patient_id})
 
-    result = response.fetchall()
-    conn.commit()
-    conn.close()
-    pdata = []
-    for item in result:
-        temp = []
-        temp.append(item[0])
-        for i in range(1,4):
-            temp.append(decrypt(item[i]))
-        pdata.append(temp)
-# fix for FLAW 5: write log after each DB operation accessing or changing data
-#    log_details = {"user": user_id, "patient_id": patient_id, "query": "medical data"}
-#    write_log(log_details)
-    return pdata
+#     result = response.fetchall()
+#     conn.commit()
+#     conn.close()
+#     pdata = []
+#     for item in result:
+#         temp = []
+#         temp.append(item[0])
+#         for i in range(1,4):
+#             temp.append(decrypt(item[i]))
+#         pdata.append(temp)
+# # fix for FLAW 5: write log after each DB operation accessing or changing data
+# #    log_details = {"user": user_id, "patient_id": patient_id, "query": "medical data"}
+# #    write_log(log_details)
+#     return pdata
 
 #fix for FLAW 1: separate query for financial data
 #fix for FLAW 2: parametrized SQL query
 #fix for FLAW 5: logging added
-def get_patient_financial(patient_id, user_id):
-    dbname='db.sqlite3'
-    conn = sqlite3.connect(dbname)
-    cursor = conn.cursor()
-    sql = '''
-        SELECT firstname, lastname, creditcard
-        FROM clinic_patients, clinic_financial
-        WHERE clinic_financial.person_id = clinic_patients.id
-        AND clinic_patients.id=:patient_id
-    ;'''
-    #SQL enquiry propeperly parametrized
-    response = cursor.execute(sql, {"patient_id":patient_id})
-    result = response.fetchall()
-    conn.commit()
-    conn.close()
-    pdata = []
-    for item in result:
-        temp = []
-        for i in range(0,3):
-            temp.append(decrypt(item[i]))
-        pdata.append(temp)
-# fix for FLAW 5: write log after each DB operation accessing or changing data
-#    log_details = {"user": user_id, "patient_id": patient_id, "query": "financial data"}
-#    write_log(log_details)
-    return pdata
+# def get_patient_financial(patient_id, user_id):
+#     dbname='db.sqlite3'
+#     conn = sqlite3.connect(dbname)
+#     cursor = conn.cursor()
+#     sql = '''
+#         SELECT firstname, lastname, creditcard
+#         FROM clinic_patients, clinic_financial
+#         WHERE clinic_financial.person_id = clinic_patients.id
+#         AND clinic_patients.id=:patient_id
+#     ;'''
+#     #SQL enquiry propeperly parametrized
+#     response = cursor.execute(sql, {"patient_id":patient_id})
+#     result = response.fetchall()
+#     conn.commit()
+#     conn.close()
+#     pdata = []
+#     for item in result:
+#         temp = []
+#         for i in range(0,3):
+#             temp.append(decrypt(item[i]))
+#         pdata.append(temp)
+# # fix for FLAW 5: write log after each DB operation accessing or changing data
+# #    log_details = {"user": user_id, "patient_id": patient_id, "query": "financial data"}
+# #    write_log(log_details)
+#     return pdata
 
 
 #fix for FLAW 7: parametrize raw SQL-query
 #and replace very dangerous "executescript" with "execute"
 #this just for demonstrative purposes, as whole function 
 #is replaced as per fix for FLAW 6
-def write_intra(new_item):
-    dbname='db.sqlite3'
-    conn = sqlite3.connect(dbname)
-    cursor = conn.cursor()
-    cursor.executescript('''
-            INSERT INTO clinic_intra (info) 
-            VALUES ('%s') 
-        ;'''% (new_item))
-    conn.commit()
-    conn.close()
-
-
+# def write_intra(new_item):
+#     dbname='db.sqlite3'
+#     conn = sqlite3.connect(dbname)
+#     cursor = conn.cursor()
+#     cursor.executescript('''
+#             INSERT INTO clinic_intra (info) 
+#             VALUES ('%s') 
+#         ;'''% (new_item))
+#     conn.commit()
+#     conn.close()
 #improved version:
         # sql = '''
         #     INSERT INTO clinic_intra (info) 
@@ -161,3 +159,13 @@ def write_intra(new_item):
         # ;'''
         # cursor.execute(sql, {"new_item": new_item})
 
+
+#Fix for FLAW 1: proper check of role
+#requires that MyUser object has been fixed first, see models.py
+# def role_is_medical(user):
+#     return MyUser.objecs(user=user).medical_staff
+
+#Fix for FLAW 1: proper check of role
+#requires that MyUser object has been fixed first, see models.py
+# def role_is_financial(user):
+#     return MyUser.objecs(user=user).finacial_staff

@@ -17,6 +17,16 @@ def index(request):
 #fix for FLAW 3, add @login required
 #@login_required 
 def choice(request):
+    
+
+    if request.user.is_authenticated:
+        user = request.user
+        user_id = user.id
+
+#fix for FLAW 1: validate that user is autorized to see even patient names        
+#    if not backend.role_is_medical(user_id) and not backend.role_is_financial(user):
+        #return redirect('index)
+
     patients = Patients.objects.order_by('id')
     for item in patients:
         item.firstname = backend.decrypt(item.firstname)
@@ -27,6 +37,7 @@ def choice(request):
 
     return render(request, 'clinic/choice.html', {"patients": patients, "diagnoses":diagnoses})
 
+
 #fix for FLAW 3 add login required
 # @login_required
 def patient(request, patient_id):
@@ -35,11 +46,17 @@ def patient(request, patient_id):
     if request.user.is_authenticated:
         user = request.user
         user_id = user.id
-        is_staff = MyUser.objects.get(user=user).clinic_staff
 
+    #fix for FLAW1: get_patient_data function to be removed
     pdata = backend.get_patient_data(patient_id, user_id)
-#    pdata = backend.get_patient_medical(patient_id, user_id)
-  #  pdata = backend.get_patient_financial(patient_id, user_id)
+
+    #fix for FLAW 1: check role, and choose functionality accordingly
+    # if backend.role_is_medical(user):
+    #     pdata = backend.get_patient_medical(patient_id, user_id)
+    # elif backend.role_is_financial(user):
+    #     pdata = backend.get_patient_financial(patient_id, user_id)
+    # else:
+    #     redirect('index')
     return render(request, 'clinic/patient.html', {"pdata": pdata})
 
 
