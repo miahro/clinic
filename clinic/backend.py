@@ -77,7 +77,7 @@ def get_patient_data(patient_id, user_id):
 
 #fix for FLAW 1: separate query for medical data
 #fix for FLAW 2: SQL requry paramatrized
-#fix for FLAW 5: loggin added 
+#fix for FLAW 5: logging added 
 # def get_patient_medical(patient_id, user_id):
 #     dbname='db.sqlite3'
 #     conn = sqlite3.connect(dbname)
@@ -138,10 +138,10 @@ def get_patient_data(patient_id, user_id):
 #     return pdata
 
 
-#fix for FLAW 7: parametrize raw SQL-query
+#fix for FLAW 2: parametrize raw SQL-query
 #and replace very dangerous "executescript" with "execute"
 #this just for demonstrative purposes, as whole function 
-#is replaced as per fix for FLAW 6
+#is removed as per fix for FLAW 6
 # def write_intra(new_item):
 #     dbname='db.sqlite3'
 #     conn = sqlite3.connect(dbname)
