@@ -142,16 +142,16 @@ def get_patient_data(patient_id, user_id):
 #and replace very dangerous "executescript" with "execute"
 #this just for demonstrative purposes, as whole function 
 #is removed as per fix for FLAW 6
-# def write_intra(new_item):
-#     dbname='db.sqlite3'
-#     conn = sqlite3.connect(dbname)
-#     cursor = conn.cursor()
-#     cursor.executescript('''
-#             INSERT INTO clinic_intra (info) 
-#             VALUES ('%s') 
-#         ;'''% (new_item))
-#     conn.commit()
-#     conn.close()
+def write_intra(new_item):
+    dbname='db.sqlite3'
+    conn = sqlite3.connect(dbname)
+    cursor = conn.cursor()
+    cursor.executescript('''
+            INSERT INTO clinic_intra (info) 
+            VALUES ('%s') 
+        ;'''% (new_item))
+    conn.commit()
+    conn.close()
 #improved version:
         # sql = '''
         #     INSERT INTO clinic_intra (info) 
